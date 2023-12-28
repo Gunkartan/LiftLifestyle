@@ -4,6 +4,7 @@ const Fonts = {
     Regular: 'RegularFont'
 }
 const Colors = {
-    Black: '#000000'
+    Black: '#000000',
+    Buttons: '#00E18E'
 }
 export { Fonts, Colors }
