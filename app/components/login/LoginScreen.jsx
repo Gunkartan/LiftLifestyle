@@ -1,14 +1,36 @@
 import { useState } from "react";
-import { View, Text, Image, TextInput, TouchableOpacity, Pressable } from "react-native";
+import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { router, Stack } from "expo-router";
+import { Auth } from "../../../constants/FirebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import Styles from "./LoginScreenStyle";
 const LoginScreen = () => {
+    const AuthVariable = Auth
+    const [Email, SetEmail] = useState('')
+    const [Password, SetPassword] = useState('')
     const [PasswordVisibility, SetPasswordVisibility] = useState(true)
+    const Login = async () => {
+        try {
+            const Response = await signInWithEmailAndPassword(AuthVariable, Email, Password)
+
+            if (Response) {
+                router.replace('components/details/DetailsScreen')
+            }
+
+        } catch (Error) {
+            console.log(Error)
+        }
+    }
     return (
         <View
             style={Styles.Container}
         >
+            <Stack.Screen
+                options={{
+                    headerShown: false
+                }}
+            />
             <View
                 style={Styles.TitleContainer}
             >
@@ -38,8 +60,10 @@ const LoginScreen = () => {
                     style={Styles.UsernameText}
                 >Username</Text>
                 <TextInput
+                    onChangeText={(Text) => SetEmail(Text)}
                     placeholder="Type your username here"
                     style={Styles.InputFields}
+                    value={Email}
                 />
                 <Text
                     style={Styles.PasswordText}
@@ -48,9 +72,11 @@ const LoginScreen = () => {
                     style={Styles.PasswordInputFieldContainer}
                 >
                     <TextInput
+                        onChangeText={(Text) => SetPassword(Text)}
                         placeholder="Type your password here"
                         secureTextEntry={PasswordVisibility}
                         style={Styles.InputFields}
+                        value={Password}
                     />
                     <TouchableOpacity
                         onPress={() => SetPasswordVisibility(!PasswordVisibility)}
@@ -64,6 +90,7 @@ const LoginScreen = () => {
                 </View>
             </View>
             <TouchableOpacity
+                onPress={Login}
                 style={Styles.LoginButton}
             >
                 <Text
@@ -77,7 +104,7 @@ const LoginScreen = () => {
                     style={Styles.AccountPossessionAskingText}
                 >Don't have an account? </Text>
                 <TouchableOpacity
-                    onPress={() => router.push('components/login/SignupScreen')}
+                    onPress={() => router.replace('components/login/SignupScreen')}
                 >
                     <Text
                         style={Styles.SignupText}
