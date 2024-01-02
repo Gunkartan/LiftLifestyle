@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, Image, TextInput, TouchableOpacity, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import Styles from "./LoginScreenStyle";
 const LoginScreen = () => {
     const [PasswordVisibility, SetPasswordVisibility] = useState(true)
@@ -70,14 +71,16 @@ const LoginScreen = () => {
                 >Login</Text>
             </TouchableOpacity>
             <View
-                style={Styles.SignUpContainer}
+                style={Styles.SignupContainer}
             >
                 <Text
                     style={Styles.AccountPossessionAskingText}
                 >Don't have an account? </Text>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => router.push('components/login/SignupScreen')}
+                >
                     <Text
-                        style={Styles.SignUpText}
+                        style={Styles.SignupText}
                     >Sign Up</Text>
                 </TouchableOpacity>
             </View>

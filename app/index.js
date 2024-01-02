@@ -1,24 +1,19 @@
-import { View, Text } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import Styles from "./Style";
+import { View } from "react-native";
+import { Stack } from "expo-router";
 import LoginScreen from "./components/login/LoginScreen";
+import Styles from "./Style";
 const App = () => {
-    const Stack = createStackNavigator()
     return (
-        <NavigationContainer>
-            <Stack.Navigator
-                initialRouteName="Login"
-                screenOptions={{
+        <View
+            style={Styles.Container}
+        >
+            <Stack.Screen
+                options={{
                     headerShown: false
                 }}
-            >
-                <Stack.Screen
-                    component={LoginScreen}
-                    name="Login"
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+            />
+            <LoginScreen />
+        </View>
     )
 }
 export default App

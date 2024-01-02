@@ -67,7 +67,7 @@ const Styles = StyleSheet.create({
         fontFamily: Fonts.Bold,
         fontSize: 15
     },
-    SignUpContainer: {
+    SignupContainer: {
         flexDirection: 'row',
         marginTop: 15
     },
@@ -76,7 +76,7 @@ const Styles = StyleSheet.create({
         fontSize: 15,
         opacity: 0.4
     },
-    SignUpText: {
+    SignupText: {
         color: Colors.Buttons,
         fontFamily: Fonts.Regular,
         fontSize: 15,
