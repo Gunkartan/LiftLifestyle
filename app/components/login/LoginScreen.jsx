@@ -10,6 +10,27 @@ const LoginScreen = () => {
     const [Email, SetEmail] = useState('')
     const [Password, SetPassword] = useState('')
     const [PasswordVisibility, SetPasswordVisibility] = useState(true)
+    const [IsDisabled, SetIsDisabled] = useState(true)
+    const HandleEmailChange = (Text) => {
+        SetEmail(Text)
+
+        if (Email != '' && Password != '') {
+            SetIsDisabled(false)
+        } else {
+            SetIsDisabled(true)
+        }
+
+    }
+    const HandlePasswordChange = (Text) => {
+        SetPassword(Text)
+
+        if (Email != '' && Password != '') {
+            SetIsDisabled(false)
+        } else {
+            SetIsDisabled(true)
+        }
+
+    }
     const Login = async () => {
         try {
             const Response = await signInWithEmailAndPassword(AuthVariable, Email, Password)
@@ -20,6 +41,7 @@ const LoginScreen = () => {
 
         } catch (Error) {
             console.log(Error)
+            alert('Incorrect email or password')
         }
     }
     return (
@@ -58,10 +80,10 @@ const LoginScreen = () => {
             <View>
                 <Text
                     style={Styles.UsernameText}
-                >Username</Text>
+                >Email</Text>
                 <TextInput
-                    onChangeText={(Text) => SetEmail(Text)}
-                    placeholder="Type your username here"
+                    onChangeText={(Text) => HandleEmailChange(Text)}
+                    placeholder="Type your email here"
                     style={Styles.InputFields}
                     value={Email}
                 />
@@ -72,7 +94,7 @@ const LoginScreen = () => {
                     style={Styles.PasswordInputFieldContainer}
                 >
                     <TextInput
-                        onChangeText={(Text) => SetPassword(Text)}
+                        onChangeText={(Text) => HandlePasswordChange(Text)}
                         placeholder="Type your password here"
                         secureTextEntry={PasswordVisibility}
                         style={Styles.InputFields}
@@ -90,8 +112,9 @@ const LoginScreen = () => {
                 </View>
             </View>
             <TouchableOpacity
+                disabled={IsDisabled}
                 onPress={Login}
-                style={Styles.LoginButton}
+                style={Styles.LoginButton(IsDisabled)}
             >
                 <Text
                     style={Styles.LoginText}
@@ -108,7 +131,7 @@ const LoginScreen = () => {
                 >
                     <Text
                         style={Styles.SignupText}
-                    >Sign Up</Text>
+                    >Signup</Text>
                 </TouchableOpacity>
             </View>
             <View

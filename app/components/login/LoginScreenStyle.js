@@ -53,16 +53,16 @@ const Styles = StyleSheet.create({
         position: 'absolute',
         right: 15
     },
-    LoginButton: {
+    LoginButton: (IsDisabled) => ({
         alignItems: 'center',
-        backgroundColor: Colors.Buttons,
         borderRadius: 25,
         borderWidth: 1,
         height: 50,
         marginTop: 32,
         justifyContent: 'center',
-        width: 360
-    },
+        width: 360,
+        backgroundColor: IsDisabled ? Colors.DisabledButtons : Colors.Buttons
+    }),
     LoginText: {
         fontFamily: Fonts.Bold,
         fontSize: 15

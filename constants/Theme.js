@@ -5,6 +5,7 @@ const Fonts = {
 }
 const Colors = {
     Black: '#000000',
-    Buttons: '#00E18E'
+    Buttons: '#00E18E',
+    DisabledButtons: '#808080'
 }
 export { Fonts, Colors }
