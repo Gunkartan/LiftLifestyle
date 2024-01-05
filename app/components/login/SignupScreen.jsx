@@ -4,6 +4,8 @@ import { router, Stack } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Auth } from "../../../constants/FirebaseConfig";
 import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { collection, getDoc, doc, setDoc } from "firebase/firestore";
+import { Database } from "../../../constants/FirebaseConfig";
 import Styles from "./SignupScreenStyle";
 const SignupScreen = () => {
     const AuthVariable = Auth
@@ -27,20 +29,36 @@ const SignupScreen = () => {
             alert('Something went wrong')
         }
     }
+    const IsTaken = async () => {
+        try {
+            const UsernameDoc = await getDoc(doc(Database, 'Data', Username))
+
+            if (UsernameDoc.exists()) {
+                alert('The username is already taken. Please change.')
+                return
+            } else {
+                Signup()
+            }
+
+        } catch (Error) {
+            console.error(Error)
+        }
+    }
     const HandleUsernameChange = (Text) => {
         SetUsername(Text)
 
-        if (Username != '' && Email != '' && Password != '' && PasswordConfirmation != '') {
+        if (Username !== '' && Email !== '' && Password !== '' && PasswordConfirmation !== '') {
             SetIsDisabled(false)
         } else {
             SetIsDisabled(true)
         }
 
     }
+
     const HandleEmailChange = (Text) => {
         SetEmail(Text)
 
-        if (Username != '' && Email != '' && Password != '' && PasswordConfirmation != '') {
+        if (Username !== '' && Email !== '' && Password !== '' && PasswordConfirmation !== '') {
             SetIsDisabled(false)
         } else {
             SetIsDisabled(true)
@@ -50,7 +68,7 @@ const SignupScreen = () => {
     const HandlePasswordChange = (Text) => {
         SetPassword(Text)
 
-        if (Username != '' && Email != '' && Password != '' && PasswordConfirmation != '') {
+        if (Username !== '' && Email !== '' && Password !== '' && PasswordConfirmation !== '') {
             SetIsDisabled(false)
         } else {
             SetIsDisabled(true)
@@ -60,7 +78,7 @@ const SignupScreen = () => {
     const HandlePasswordConfirmationChange = (Text) => {
         SetPasswordConfirmation(Text)
 
-        if (Username != '' && Email != '' && Password != '' && PasswordConfirmation != '') {
+        if (Username !== '' && Email !== '' && Password !== '' && PasswordConfirmation !== '') {
             SetIsDisabled(false)
         } else {
             SetIsDisabled(true)
@@ -151,7 +169,7 @@ const SignupScreen = () => {
             </View>
             <TouchableOpacity
                 disabled={IsDisabled}
-                onPress={Signup}
+                onPress={IsTaken}
                 style={Styles.ConfirmButton(IsDisabled)}
             >
                 <Text

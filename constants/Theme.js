@@ -6,6 +6,10 @@ const Fonts = {
 const Colors = {
     Black: '#000000',
     Buttons: '#00E18E',
-    DisabledButtons: '#808080'
+    DisabledButtons: '#808080',
+    PrimaryRed: '#DC2626',
+    PrimaryOrange: '#FB923C',
+    PrimaryYellow: '#FACC15',
+    PrimaryGreen: '#A3E635'
 }
 export { Fonts, Colors }

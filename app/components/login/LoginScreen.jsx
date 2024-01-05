@@ -14,7 +14,7 @@ const LoginScreen = () => {
     const HandleEmailChange = (Text) => {
         SetEmail(Text)
 
-        if (Email != '' && Password != '') {
+        if (Email !== '' && Password !== '') {
             SetIsDisabled(false)
         } else {
             SetIsDisabled(true)
@@ -24,7 +24,7 @@ const LoginScreen = () => {
     const HandlePasswordChange = (Text) => {
         SetPassword(Text)
 
-        if (Email != '' && Password != '') {
+        if (Email !== '' && Password !== '') {
             SetIsDisabled(false)
         } else {
             SetIsDisabled(true)
