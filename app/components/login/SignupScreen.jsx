@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, TouchableOpacity, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, Alert } from "react-native";
 import { router, Stack } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { Auth } from "../../../constants/FirebaseConfig";
@@ -21,15 +21,20 @@ const SignupScreen = () => {
             const Response = await createUserWithEmailAndPassword(AuthVariable, Email, Password)
 
             if (Response) {
+                const DocumentReference = doc(Database, 'Data', Username)
+                await setDoc(DocumentReference, {
+                    Email: Email,
+                    Username: Username
+                })
                 router.replace('components/login/LoginScreen')
             }
 
         } catch (Error) {
             console.log(Error)
-            alert('Something went wrong')
+            alert('Something went wrong. The email might already be in use.')
         }
     }
-    const IsTaken = async () => {
+    const UsernameValidityCheck = async () => {
         try {
             const UsernameDoc = await getDoc(doc(Database, 'Data', Username))
 
@@ -37,12 +42,41 @@ const SignupScreen = () => {
                 alert('The username is already taken. Please change.')
                 return
             } else {
-                Signup()
+                EmailValidityCheck()
             }
 
         } catch (Error) {
             console.error(Error)
         }
+    }
+    const EmailValidityCheck = async () => {
+        const EmailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i
+
+        if (!EmailPattern.test(Email)) {
+            alert('Please enter your email in a valid form.')
+            return
+        } else {
+            PasswordValidityCheck()
+        }
+
+    }
+    const PasswordValidityCheck = () => {
+        const PasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\s).{8,}$/
+
+        if (!PasswordPattern.test(Password)) {
+            alert('A password must have at least an uppercase, a lowercase, a space, and a number and must be at least 8 characters long.')
+            return
+        } else {
+
+            if (Password !== PasswordConfirmation) {
+                alert('The password in the input and confirmation fields is different.')
+                return
+            } else {
+                Signup()
+            }
+
+        }
+
     }
     const HandleUsernameChange = (Text) => {
         SetUsername(Text)
@@ -169,7 +203,7 @@ const SignupScreen = () => {
             </View>
             <TouchableOpacity
                 disabled={IsDisabled}
-                onPress={IsTaken}
+                onPress={UsernameValidityCheck}
                 style={Styles.ConfirmButton(IsDisabled)}
             >
                 <Text
