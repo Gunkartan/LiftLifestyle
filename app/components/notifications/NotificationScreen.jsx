@@ -1,6 +1,8 @@
 import { View, Text } from "react-native";
 import { Stack } from "expo-router";
-const DetailsScreen = () => {
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+const NotificationScreen = () => {
     return(
         <View>
             <Stack.Screen
@@ -8,8 +10,8 @@ const DetailsScreen = () => {
                     headerShown: false
                 }}
             />
-            <Text>This is the details screen.</Text>
+            <Text>Notification screen.</Text>
         </View>
     )
 }
-export default DetailsScreen
+export default NotificationScreen

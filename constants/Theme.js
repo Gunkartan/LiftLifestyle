@@ -7,6 +7,7 @@ const Colors = {
     Black: '#000000',
     Buttons: '#00E18E',
     DisabledButtons: '#808080',
+    ActiveTabIndicator: '#D9D9D9',
     PrimaryRed: '#DC2626',
     PrimaryOrange: '#FB923C',
     PrimaryYellow: '#FACC15',

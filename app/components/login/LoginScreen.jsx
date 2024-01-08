@@ -2,11 +2,10 @@ import { useState } from "react";
 import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router, Stack } from "expo-router";
-import { Auth } from "../../../constants/FirebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { Auth } from "../../../constants/FirebaseConfig";
 import Styles from "./LoginScreenStyle";
 const LoginScreen = () => {
-    const AuthVariable = Auth
     const [Email, SetEmail] = useState('')
     const [Password, SetPassword] = useState('')
     const [PasswordVisibility, SetPasswordVisibility] = useState(true)
@@ -33,10 +32,10 @@ const LoginScreen = () => {
     }
     const Login = async () => {
         try {
-            const Response = await signInWithEmailAndPassword(AuthVariable, Email, Password)
+            const Response = await signInWithEmailAndPassword(Auth, Email, Password)
 
             if (Response) {
-                router.replace('components/details/DetailsScreen')
+                router.replace('components/details/DetailScreen')
             }
 
         } catch (Error) {
@@ -154,6 +153,7 @@ const LoginScreen = () => {
                 style={Styles.LoginOptionContainer}
             >
                 <TouchableOpacity
+                    onPress={() => alert('Currently unavailable. Sorry for the inconvenience.')}
                     style={Styles.LoginOptionButtons}
                 >
                     <Image
@@ -161,6 +161,7 @@ const LoginScreen = () => {
                     />
                 </TouchableOpacity>
                 <TouchableOpacity
+                    onPress={() => alert('Currently unavailable. Sorry for the inconvenience.')}
                     style={Styles.LoginOptionButtons}
                 >
                     <Image
@@ -168,6 +169,7 @@ const LoginScreen = () => {
                     />
                 </TouchableOpacity>
                 <TouchableOpacity
+                    onPress={() => alert('Currently unavailable. Sorry for the inconvenience.')}
                     style={Styles.LoginOptionButtons}
                 >
                     <Image
