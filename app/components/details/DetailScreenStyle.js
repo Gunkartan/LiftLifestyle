@@ -34,11 +34,12 @@ const Styles = StyleSheet.create({
     },
     InnerTabContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
-        width: 360
+        justifyContent: 'space-around',
+        width: 360,
+        zIndex: 2
     },
     EachTabContainer: {
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     OngoingText: {
         fontFamily: Fonts.Bold,
@@ -60,11 +61,45 @@ const Styles = StyleSheet.create({
         fontSize: 15
     },
     ActiveTabIndicator: {
+        alignSelf: 'flex-start',
         backgroundColor: Colors.ActiveTabIndicator,
         borderRadius: 50,
         height: 40,
+        marginLeft: 5,
         opacity: 0.5,
+        position: 'absolute',
         width: 170
-    }
+    },
+    TaskList: {
+        alignSelf: 'center'
+    },
+    TaskContainer: {
+        borderRadius: 15,
+        borderWidth: 1,
+        height: 143,
+        marginTop: 15,
+        padding: 15,
+        width: 360
+    },
+    TaskNameContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    TaskName: {
+        fontFamily: Fonts.Bold,
+        fontSize: 20
+    },
+    MoreOptionContainer: {
+        alignItems: 'flex-end'
+    },
+    OptionContainer: (OptionVisibility) => ({
+        backgroundColor: Colors.White,
+        borderRadius: 15,
+        borderWidth: 1,
+        height: 98,
+        paddingHorizontal: 6,
+        width: 100,
+        display: OptionVisibility ? 'flex' : 'none'
+    })
 })
 export default Styles

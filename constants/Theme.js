@@ -5,6 +5,7 @@ const Fonts = {
 }
 const Colors = {
     Black: '#000000',
+    White: '#FFFFFF',
     Buttons: '#00E18E',
     DisabledButtons: '#808080',
     ActiveTabIndicator: '#D9D9D9',

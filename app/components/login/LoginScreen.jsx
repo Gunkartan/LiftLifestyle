@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { View, Text, Image, TextInput, TouchableOpacity } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router, Stack } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Auth } from "../../../constants/FirebaseConfig";
 import Styles from "./LoginScreenStyle";
@@ -10,6 +11,13 @@ const LoginScreen = () => {
     const [Password, SetPassword] = useState('')
     const [PasswordVisibility, SetPasswordVisibility] = useState(true)
     const [IsDisabled, SetIsDisabled] = useState(true)
+    const StoreData = async () => {
+        try {
+            await AsyncStorage.setItem('Email', JSON.stringify(Email))
+        } catch (Error) {
+            console.error(Error);
+        }
+    }
     const HandleEmailChange = (Text) => {
         SetEmail(Text)
 
@@ -35,6 +43,7 @@ const LoginScreen = () => {
             const Response = await signInWithEmailAndPassword(Auth, Email, Password)
 
             if (Response) {
+                StoreData()
                 router.replace('components/details/DetailScreen')
             }
 
@@ -81,6 +90,7 @@ const LoginScreen = () => {
                     style={Styles.UsernameText}
                 >Email</Text>
                 <TextInput
+                    autoCapitalize='none'
                     onChangeText={(Text) => HandleEmailChange(Text)}
                     placeholder="Type your email here"
                     style={Styles.InputFields}
